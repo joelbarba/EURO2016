@@ -1,0 +1,11 @@
+
+
++client			# Files to use in the client
+  - index.html
+  - styles.css
+  - main.js
+
++lib			# Library files
++public
++server
+-settings.json		# MongoDB link config (to mongodb:// server)
