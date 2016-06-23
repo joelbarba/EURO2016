@@ -39,7 +39,7 @@ This is the menu
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">MY APP</a>
+      <a class="navbar-brand" href="#">Euro2016</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,6 +50,10 @@ This is the menu
         <li id="nav_bar_part2_link"><a href="#">part2</a></li>
         <li id="nav_bar_part3_link"><a href="#">part3</a></li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          <li><div class="navbar-form">{{> loginButtons align="right"}}</div></li>
+      </ul>        
         
    
 
@@ -65,13 +69,21 @@ This is the menu
 
 <!-- template that displays several website items -->
 <template name="principal_screen">
-    <div class="container">
-        <div class="col-xs-12 col-md-4">
-            <p> Left side </p>
-        </div>
-        <div class="col-xs-12 col-md-8">
-            <p> Right side </p>
-            <button class="js-button1">CLICK ME</button>
-        </div>
+  <div class="container-fluid" style="margin-top: 50px">
+
+    {{#each getbets}}
+        <p>hello {{modified}} {{match[0]}} {{user_id}}</p>
+    {{/each}}
+
+    <div class="row text-right">
+      {{#if currentUser}}
+          <button class="js-save-bet btn btn-default btn-success">SAVE YOUR BET</button>
+      {{/if}}
     </div>
+    <div class="row">
+      <div id="id_left_window_part" class="col-md-12">
+         <table id="table"></table>
+      </div>    
+    </div>
+  </div>
 </template>

@@ -1,1 +1,30 @@
 /* CSS declarations go here */
+
+
+    td {
+      border: 0px solid black;
+      height: 24px;
+      width: 30px;
+    }
+
+    td.line_col {
+      width: 40px;
+    }
+    td.q1 {
+      border-top: 3px solid black;
+    }
+    td.q2 {
+      border-right: 3px solid black;
+    }
+    td.q3 {
+      border-bottom: 3px solid black;
+    }
+    td.q4 {
+      border-left: 3px solid black;
+    }     
+
+    td.team_col {
+      border: 1px solid black;
+      background-color: #DDDDDD;
+      width: 130px;
+    }
