@@ -32,9 +32,12 @@ var bet = {};
 
 Template.principal_screen.onRendered(function () { 
 
+	setTimeout(function() {
+	 	create_tree(); 
+	 }, 
+	 1000);
 
-
-  create_tree(); 
+  
 
 });
 
@@ -137,27 +140,27 @@ function create_tree() {
   var teams = [
     { id:   0, name: 'Switzerland' },
     { id:   1, name: 'Poland' },
-    { id:   2, name: 'xxxxxxxxx2' },
-    { id:   3, name: 'xxxxxxxxx3' },
+    { id:   2, name: 'Croatia' },
+    { id:   3, name: 'Portugal' },
     { id:   4, name: 'Wales' },
-    { id:   5, name: 'xxxxxxxxx5' },
-    { id:   6, name: 'xxxxxxxxx6' },
-    { id:   7, name: 'xxxxxxxxx7' },
+    { id:   5, name: 'N. Ireland' },
+    { id:   6, name: 'Hungary' },
+    { id:   7, name: 'Belgium' },
     { id:   8, name: 'Germany' },
-    { id:   9, name: 'xxxxxxxxx9' },
+    { id:   9, name: 'Slovakia' },
     { id:  10, name: 'Italy' },
-    { id:  11, name: 'xxxxxxxxx11' },
+    { id:  11, name: 'Spain' },
     { id:  12, name: 'France' },
-    { id:  13, name: 'xxxxxxxxx13' },
+    { id:  13, name: 'Ireland' },
     { id:  14, name: 'England' },
-    { id:  15, name: 'xxxxxxxxx15' }
+    { id:  15, name: 'Iceland' }
   ];
   
   match.push([teams[00], teams[01]]); // 0
   match.push([teams[02], teams[03]]); // 1
   match.push([teams[04], teams[05]]); // 2
   match.push([teams[06], teams[07]]); // 3
-  match.push([teams[8],  teams[07]]); // 4
+  match.push([teams[8],  teams[9]]); // 4
   match.push([teams[10], teams[11]]); // 5
   match.push([teams[12], teams[13]]); // 6
   match.push([teams[14], teams[15]]); // 7
@@ -171,6 +174,7 @@ function create_tree() {
   match.push([null, null]); // 13
   
   match.push([null, null]); // 14
+  match.push([null, null]); // 15
 
   $('.m1-1').append( '<select> <option value="' + match[0][0].id + '">' + match[0][0].name + '</option> </select>');
   $('.m1-2').append( '<select> <option value="' + match[0][1].id + '">' + match[0][1].name + '</option> </select>');
@@ -210,7 +214,7 @@ function create_tree() {
     }
     if (level == 4) {
       nextClass = Math.floor((numMatch - 8) / 2) + 1;
-      nextMatch = 12 + nextClass;
+      nextMatch = 11 + nextClass;
       match[nextMatch][numMatch % 2] = teams[sel.value];
       team1 = match[nextMatch][0];
       team2 = match[nextMatch][1];
@@ -221,7 +225,12 @@ function create_tree() {
       match[14][numMatch % 2] = teams[sel.value];
       team1 = match[nextMatch][0];
       team2 = match[nextMatch][1];
-    }          
+    }
+    if (level == 6) {
+      if (match.length < 16) match.push([null, null]); // 15
+      match[15][0] = teams[sel.value];
+      return;
+    }   
 
     var sel = '<select onchange="setMatch(' + (level + 1) + ', ' + nextMatch  + ', this)"> ';
     sel += ' <option value="null"></option> ';
@@ -256,7 +265,6 @@ function create_tree() {
         $('.m2-1 select').val(currMatch.id);
         setMatch(3, 0, {value: currMatch.id});
       }
-
       currMatch = match[8][1];
       if (currMatch) {
         $('.m2-2 select').val(currMatch.id);
@@ -268,15 +276,74 @@ function create_tree() {
         $('.m2-3 select').val(currMatch.id);
         setMatch(3, 2, {value: currMatch.id});
       }
-
       currMatch = match[9][1];
       if (currMatch) {
         $('.m2-4 select').val(currMatch.id);
         setMatch(3, 3, {value: currMatch.id});
       }
 
+      currMatch = match[10][0];
+      if (currMatch) {
+        $('.m2-5 select').val(currMatch.id);
+        setMatch(3, 4, {value: currMatch.id});
+      }
+      currMatch = match[10][1];
+      if (currMatch) {
+        $('.m2-6 select').val(currMatch.id);
+        setMatch(3, 5, {value: currMatch.id});
+      }
+
+      currMatch = match[11][0];
+      if (currMatch) {
+        $('.m2-7 select').val(currMatch.id);
+        setMatch(3, 6, {value: currMatch.id});
+      }
+      currMatch = match[11][1];
+      if (currMatch) {
+        $('.m2-8 select').val(currMatch.id);
+        setMatch(3, 7, {value: currMatch.id});
+      }
 
 
+      currMatch = match[12][0];
+      if (currMatch) {
+        $('.m3-1 select').val(currMatch.id);
+        setMatch(4, 8, {value: currMatch.id});
+      }
+      currMatch = match[12][1];
+      if (currMatch) {
+        $('.m3-2 select').val(currMatch.id);
+        setMatch(4, 9, {value: currMatch.id});
+      }
+
+      currMatch = match[13][0];
+      if (currMatch) {
+        $('.m3-3 select').val(currMatch.id);
+        setMatch(4, 10, {value: currMatch.id});
+      }
+      currMatch = match[13][1];
+      if (currMatch) {
+        $('.m3-4 select').val(currMatch.id);
+        setMatch(4, 11, {value: currMatch.id});
+      }
+
+
+      currMatch = match[14][0];
+      if (currMatch) {
+        $('.m4-1 select').val(currMatch.id);
+        setMatch(5, 12, {value: currMatch.id});
+      }
+      currMatch = match[14][1];
+      if (currMatch) {
+        $('.m4-2 select').val(currMatch.id);
+        setMatch(5, 13, {value: currMatch.id});
+      }
+
+      currMatch = match[15][0];
+      if (currMatch) {
+        $('.m5-1 select').val(currMatch.id);
+        setMatch(6, 14, {value: currMatch.id});
+      }
 
     }
   }   
@@ -334,6 +401,7 @@ Template.principal_screen.events({
       };
 
       Meteor.call( 'betUpsert', Meteor.user()._id, newBet );
+      alert("Fine, good luck!");
       // betUpsert(Meteor.user()._id, { points: 40, matches: [3, 4, 6] });
       // Bets.update(
       //             { _id : Meteor.user()._id }, 

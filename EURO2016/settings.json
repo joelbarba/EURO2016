@@ -1,0 +1,7 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "MONGO_URL": "mongodb://joel:laclau@ds019654.mlab.com:19654/euro2016"
+    }
+  }
+}
