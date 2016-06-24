@@ -1,7 +1,7 @@
 //shared code
-// Meteor.methods({
-//   betUpsert: function( id, doc ){
-//   		console.log('feeee');
-//      Bets.upsert( id, doc );
-//   }
-// });
+Meteor.methods({
+  betUpsert: function( id, doc ){
+  		console.log('bet updated');
+     Bets.upsert( id, doc );
+  }
+});

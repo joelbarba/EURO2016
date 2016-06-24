@@ -20,33 +20,24 @@ Router.route('/principal', function () {
     this.render('principal_screen', { 
       to : "main",
       data : function() {
-        return null;
+        return 0;
       }  
     }); 
   }, 
   { name : "prin" } // Parameter to know you are in this route
 );
 
+var match = [];
+var bet = {};
+
 Template.principal_screen.onRendered(function () { 
+
+
+
   create_tree(); 
-
-        // if (Meteor.user()) { 
-        //   bet = Bets.findOne(
-        //         { _id: Meteor.user()._id},
-        //         { sort  : { _id: 1 }, 
-        //           limit : 500}
-        //     );
-        //   // console.log(bet);
-        //   if (bet) {
-        //     match = bet.match;
-
-        //     $('.m2-2 select').val(1);
-        //   }
-        // }    
 
 });
 
-var match = [];
 
 function create_tree() {
   console.log('ini create_tree');
@@ -171,7 +162,6 @@ function create_tree() {
   match.push([teams[12], teams[13]]); // 6
   match.push([teams[14], teams[15]]); // 7
 
-
   match.push([null, null]); // 8
   match.push([null, null]); // 9
   match.push([null, null]); // 10
@@ -199,8 +189,7 @@ function create_tree() {
   $('.m1-15').append('<select> <option value="' + match[7][0].id + '">' + match[7][0].name + '</option> </select>');
   $('.m1-16').append('<select> <option value="' + match[7][1].id + '">' + match[7][1].name + '</option> </select>');
 
-
-  
+ 
 
   setMatch = function (level, numMatch, sel) {
     var team1 = null;
@@ -251,6 +240,49 @@ function create_tree() {
   setMatch(2, 7, null);
   setMatch(2, 8, null);  
 
+
+  if (Meteor.user()) { 
+    bet = Bets.findOne(
+          { _id: Meteor.user()._id},
+          { sort  : { _id: 1 }, 
+            limit : 500}
+      );
+    // console.log(bet);
+    if (bet) {
+      match = bet.match;
+
+      currMatch = match[8][0];
+      if (currMatch) {
+        $('.m2-1 select').val(currMatch.id);
+        setMatch(3, 0, {value: currMatch.id});
+      }
+
+      currMatch = match[8][1];
+      if (currMatch) {
+        $('.m2-2 select').val(currMatch.id);
+        setMatch(3, 1, {value: currMatch.id});
+      }
+
+      currMatch = match[9][0];
+      if (currMatch) {
+        $('.m2-3 select').val(currMatch.id);
+        setMatch(3, 2, {value: currMatch.id});
+      }
+
+      currMatch = match[9][1];
+      if (currMatch) {
+        $('.m2-4 select').val(currMatch.id);
+        setMatch(3, 3, {value: currMatch.id});
+      }
+
+
+
+
+    }
+  }   
+
+
+
   console.log('end create_tree');
 }
 
@@ -295,8 +327,13 @@ Template.principal_screen.events({
       //   // winner14: match[14][1],
       //   modified: new Date()
       // }
+      var newBet = {
+        _id         : Meteor.user()._id,
+        modified    : new Date(),
+        match       : match
+      };
 
-      //Meteor.call( 'betUpsert', Meteor.user()._id, newBet );
+      Meteor.call( 'betUpsert', Meteor.user()._id, newBet );
       // betUpsert(Meteor.user()._id, { points: 40, matches: [3, 4, 6] });
       // Bets.update(
       //             { _id : Meteor.user()._id }, 
@@ -304,15 +341,11 @@ Template.principal_screen.events({
       //             { upsert: true}
       //         );      
 
-      if (Bets.findOne({ _id: Meteor.user()._id })) {
-        Bets.remove(
-           { _id: Meteor.user()._id }, { justOne: true }
-        ); 
-      }      
-      Bets.insert({
-        _id         : Meteor.user()._id,
-        modified    : new Date(),
-        match       : match
-      });
+      // if (Bets.findOne({ _id: Meteor.user()._id })) {
+      //   Bets.remove(
+      //      { _id: Meteor.user()._id }, { justOne: true }
+      //   ); 
+      // }      
+      // Bets.insert(newBet);
     }
 });

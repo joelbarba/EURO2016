@@ -45,7 +45,7 @@ This is the menu
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li id="nav_bar_home_link"><a href="/principal">Home</a></li>
+        <li id="nav_bar_home_link"><a href="/">Home</a></li>
         <li id="nav_bar_part1_link"><a href="#">part1</a></li>
         <li id="nav_bar_part2_link"><a href="#">part2</a></li>
         <li id="nav_bar_part3_link"><a href="#">part3</a></li>
@@ -72,7 +72,7 @@ This is the menu
   <div class="container-fluid" style="margin-top: 50px">
 
     {{#each getbets}}
-        <p>hello {{modified}} {{match[0]}} {{user_id}}</p>
+        <p>hello {{modified}} {{_id}}</p>
     {{/each}}
 
     <div class="row text-right">
