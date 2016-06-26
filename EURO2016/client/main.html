@@ -6,12 +6,14 @@
 </body>
 
 <template name="Main_template">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       {{> yield "navbar"}}
     </div>
     <div class="row">
-      {{> yield "main"}}
+      <div class="col-xs-12" style=" padding: 20px;">
+        {{> yield "main"}}
+      </div>
     </div>
   </div>    
 </template>
@@ -21,7 +23,7 @@
     <div class="jumbotron">
       <h1>Euro Cup 2016 friendly bet</h1>
         <br/>
-      <a href="/principal" class="btn btn-info text-center">Make your bet!</a>
+      <a href="/ranking" class="btn btn-info text-center">Go to the Ranking</a>
     </div>
   </div>
 </template>
@@ -46,6 +48,7 @@
       <ul class="nav navbar-nav">
         <li id="nav_bar_home_link"><a href="/">Home</a></li>
         <li id="nav_bar_part1_link"><a href="/principal">Your bet</a></li>
+        <li id="nav_bar_part2_link"><a href="/ranking">Ranking</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -68,13 +71,13 @@
 <template name="principal_screen">
   <div class="container-fluid" style="margin-top: 80px">
 
-    {{#each getbets}}
+<!--     {{#each getbets}}
         <p>Last modification: {{modified}} {{_id}}</p>
-    {{/each}}
+    {{/each}} -->
 
     <div class="row text-right">
       {{#if currentUser}}
-          <button class="js-save-bet btn btn-default btn-success">SAVE YOUR BET</button>
+          <!-- <button class="js-save-bet btn btn-default btn-success">SAVE YOUR BET</button> -->
       {{else}}
         <p>Hey, login to bet first (don't worry, you don't have to provide a valid email, just one you can remember and to show who you are)</p>
       {{/if}}
@@ -85,4 +88,118 @@
       </div>    
     </div>
   </div>
+</template>
+
+
+<!-- template that displays several website items -->
+<template name="ranking_screen">
+
+
+    <div class="row"  style="margin-top: 80px;">
+      <h2> Ranking </h2>
+    </div>
+    
+    <div class="row">
+
+      <table class="table" id="ranking-table" style="border: 1px solid #CCCCCC">
+        <tr style="background-color: #EEEEEE"> 
+          <td>Name</td> 
+          <td>Points</td> 
+          <td></td> 
+          <td>Switzerland<br/>Poland</td> 
+          <td>Croatia<br/>Portugal</td> 
+          <td>Wales<br/>N.Ireland</td> 
+          <td>Hungary<br/>Belgium</td> 
+          <td>Germany<br/>Slovakia</td> 
+          <td>Italy<br/>Spain</td> 
+          <td>France<br/>Ireland</td> 
+          <td>England<br/>Iceland</td> 
+          <td></td> 
+          <td>Poland<br/>Portugal</td> 
+          <td>Wales<br/>????</td> 
+          <td>????<br/>????</td> 
+          <td>????<br/>????</td> 
+          <td></td> 
+          <td>????<br/>????</td> 
+          <td>????<br/>????</td> 
+          <td></td> 
+          <td>????<br/>????</td> 
+        </tr>
+        <tr style="background-color: #EEFFFF"> 
+          <td></td> 
+          <td></td> 
+          <td></td> 
+          <td>25Jun</td> 
+          <td>25Jun</td> 
+          <td>25Jun</td> 
+          <td>26Jun</td> 
+          <td>26Jun</td> 
+          <td>27Jun</td> 
+          <td>26Jun</td> 
+          <td>27Jun</td> 
+          <td></td> 
+          <td>30Jun</td> 
+          <td>01Jul</td> 
+          <td>02Jul</td> 
+          <td>03Jul</td> 
+          <td></td> 
+          <td>06Jul</td> 
+          <td>07Jul</td> 
+          <td></td> 
+          <td>10Jul</td> 
+        </tr>        
+        {{#each getranking}}
+          <tr> <td>{{nom}}</td> <td>{{points}}</td> 
+            <td></td> 
+            <td>{{winner1}}</td> 
+            <td>{{winner2}}</td> 
+            <td>{{winner3}}</td> 
+            <td>{{winner4}}</td> 
+            <td>{{winner5}}</td> 
+            <td>{{winner6}}</td> 
+            <td>{{winner7}}</td> 
+            <td>{{winner8}}</td> 
+            <td></td> 
+            <td>{{winner9}}</td> 
+            <td>{{winner10}}</td> 
+            <td>{{winner11}}</td> 
+            <td>{{winner12}}</td> 
+            <td></td> 
+            <td>{{winner13}}</td> 
+            <td>{{winner14}}</td> 
+            <td></td> 
+            <td>{{winner15}}</td> 
+          </tr>
+        {{/each}}    
+      
+
+        <tr style="background-color: #EEFFEE"> 
+          <td>Result</td> 
+          <td></td> 
+          <td></td> 
+          <td>{{getwinner 1}}</td> 
+          <td>{{getwinner 2}}</td> 
+          <td>{{getwinner 3}}</td> 
+          <td>{{getwinner 4}}</td> 
+          <td>{{getwinner 5}}</td> 
+          <td>{{getwinner 6}}</td> 
+          <td>{{getwinner 7}}</td> 
+          <td>{{getwinner 8}}</td> 
+          <td></td> 
+          <td>{{getwinner 9}}</td> 
+          <td>{{getwinner 10}}</td> 
+          <td>{{getwinner 11}}</td> 
+          <td>{{getwinner 12}}</td> 
+          <td></td> 
+          <td>{{getwinner 13}}</td> 
+          <td>{{getwinner 14}}</td> 
+          <td></td> 
+          <td>{{getwinner 15}}</td> 
+        </tr>
+
+      </table>
+
+
+    </div>
+
 </template>

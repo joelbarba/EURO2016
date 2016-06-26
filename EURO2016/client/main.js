@@ -27,6 +27,13 @@ Router.route('/principal', function () {
   { name : "prin" } // Parameter to know you are in this route
 );
 
+Router.route('/ranking', function () {
+    this.render('navbar',           { to : "navbar" });
+    this.render('ranking_screen', { to : "main" }); 
+  }, 
+  { name : "rank" } // Parameter to know you are in this route
+);
+
 var match = [];
 var bet = {};
 
@@ -354,46 +361,15 @@ function create_tree() {
 }
 
 
-Template.principal_screen.helpers({
-  getbets: function() {
-    return Bets.find(
-                {},
-                { sort  : { _id: 1 }, 
-                  limit : 500}
-            );
-  }
-});
 
 Template.principal_screen.events({
     "click .js-save-bet": function(event) { 
       console.log('save bet');
-      // Bets.insert({
-      //   matches     : [1, 2, 3, 5],
-      //   user_id     : Meteor.user()._id,
-      //   created     : 0,
-      //   modified    : 0,
-      //   points      : 342
-      // });
-      
+      if (new Date() > new Date(2016, 5, 25, 14)) {
+          alert('I am sorry, it is too late to bet. Ask Joel if you want to change something');
+          return -1;
+      }
 
-      // var newBet = {
-      //   match : match,
-      //   // winner1:  match[8][0],
-      //   // winner2:  match[8][1],
-      //   // winner3:  match[9][0],
-      //   // winner4:  match[9][1],
-      //   // winner5:  match[10][0],
-      //   // winner6:  match[10][1],
-      //   // winner7:  match[11][0],
-      //   // winner8:  match[11][1],
-      //   // winner9:  match[12][0],
-      //   // winner10: match[12][1],
-      //   // winner11: match[13][0],
-      //   // winner12: match[13][1],
-      //   // winner13: match[14][0],
-      //   // winner14: match[14][1],
-      //   modified: new Date()
-      // }
       var newBet = {
         _id         : Meteor.user()._id,
         modified    : new Date(),
@@ -415,5 +391,162 @@ Template.principal_screen.events({
       //   ); 
       // }      
       // Bets.insert(newBet);
+    }    
+});
+
+Template.ranking_screen.events({
+  "click .js-reload": function(event) { 
+      // Meteor.users.insert({
+        //   "_id":"4EsY3LsENRgayduqY",
+        //   "createdAt":{"$date":"2016-06-24T13:15:46.360Z"},
+        //   "services":{
+        //       "password":{"bcrypt":"$2a$10$HKx1o3yTZWxuVVWLhVHDc.9Bg/pZb9OwWVtjROzHDmf.8D1oQt3MW"},
+        //       "resume":{
+        //         "loginTokens":[
+        //           {"when":{"$date":"2016-06-24T13:29:24.844Z"},
+        //           "hashedToken":"oZzx4/qCGWNOl/VdyBBifqsuwVlDwamts+beCwDOywE="}
+        //           ,{"when":{"$date":"2016-06-24T19:09:19.250Z"},
+        //           "hashedToken":"5JZiGqhtWtqlWO+BLdn0ZWaLuz05KtdyMLXT5BSNGqs="}
+        //           ]
+        //       }
+        //   },
+        //   "emails":[{"address":"joel.barba@one.com","verified":false}]
+        // });
+      alert('inserted');
     }
+});
+
+var ranking = [];
+
+
+
+var winners = [
+null, // 0
+'Poland', // 1
+'Portugal', // 2
+'Wales', // 3
+'', // 4
+'', // 5
+'', // 6
+'', // 7
+'', // 8
+'', // 9
+'', // 10
+'', // 11
+'', // 12
+'', // 13
+'', // 14
+'' // 15
+]
+
+
+Template.ranking_screen.helpers({
+  getbets: function() {
+    return Bets.find(
+                {},
+                { sort  : { _id: 1 }, 
+                  limit : 500}
+            );
+  },
+  getusers: function() {
+    return Meteor.users.find(
+                {},
+                { sort  : { _id: 1 }, 
+                  limit : 500}
+            );
+  },
+  getwinner: function(num) {
+    return winners[num];
+  },
+  getranking: function() {
+
+
+
+    ranking = [];
+    Bets.find({},{}).forEach(function(item) { 
+      item.winner = [];
+      item.points = 0;
+
+      item.winner1 = item.match[8][0].name;
+      item.winner2 = item.match[8][1].name;
+      item.winner3 = item.match[9][0].name;
+      item.winner4 = item.match[9][1].name;
+      item.winner5 = item.match[10][0].name;
+      item.winner6 = item.match[10][1].name;
+      item.winner7 = item.match[11][0].name;
+      item.winner8 = item.match[11][1].name;
+      item.winner9 = item.match[12][0].name;
+      item.winner10 = item.match[12][1].name;
+      item.winner11 = item.match[13][0].name;
+      item.winner12 = item.match[13][1].name;
+      item.winner13 = item.match[14][0].name;
+      item.winner14 = item.match[14][1].name;
+      item.winner15 = item.match[15][0].name;
+
+      if (winners[1] == item.winner1)   { item.result1 = 'ok'; item.points++; }
+      if (winners[2] == item.winner2)   { item.result2 = 'ok'; item.points++; }
+      if (winners[3] == item.winner3)   { item.result3 = 'ok'; item.points++; }
+      if (winners[4] == item.winner4)   { item.result4 = 'ok'; item.points++; }
+      if (winners[5] == item.winner5)   { item.result5 = 'ok'; item.points++; }
+      if (winners[6] == item.winner6)   { item.result6 = 'ok'; item.points++; }
+      if (winners[7] == item.winner7)   { item.result7 = 'ok'; item.points++; }
+      if (winners[8] == item.winner8)   { item.result8 = 'ok'; item.points++; }
+      if (winners[9] == item.winner9)   { item.result9 = 'ok'; item.points++; }
+      if (winners[10] == item.winner10) { item.result10 = 'ok'; item.points++; }
+      if (winners[11] == item.winner11) { item.result11 = 'ok'; item.points++; }
+      if (winners[12] == item.winner12) { item.result12 = 'ok'; item.points++; }
+      if (winners[13] == item.winner13) { item.result13 = 'ok'; item.points++; }
+      if (winners[14] == item.winner14) { item.result14 = 'ok'; item.points++; }
+      if (winners[15] == item.winner15) { item.result15 = 'ok'; item.points++; }
+
+      ranking.push(item); 
+    });
+
+
+    // for (var t = 0; t < ranking.length; t++) {
+    //   Meteor.call('getUser', ranking[t]._id, function(error, result){
+    //     if(!error){
+    //       if (result.emails) {
+
+    //               for (var i = 0; i < ranking.length; i++) {
+    //                 if (ranking[i]._id == result._id) {
+    //                   ranking[i].nom2 = result.emails[0].address;
+    //                 }
+    //               }
+    //       }
+    //     }
+    //   });
+    // }
+    // console.log(ranking);
+    
+    // Meteor.users.find({},{}).forEach(function(item) { 
+    //   console.log(item)
+    //   Meteor.call('getUser', item._id, function(error, result){
+    //     if(!error){
+    //       for (var t = 0; t < ranking.length; t++) {
+    //         if (ranking[t]._id == result._id) {
+    //           console.log('res', result, ranking[t]);
+              
+    //         }
+    //       }
+    //     }
+    //   });  
+
+    // });
+
+
+    // Meteor.call( 'getUser', "4EsY3LsENRgayduqY", usuari);
+  
+
+
+    // ranking.forEach(function(bet) {
+    //   var user = Meteor.users.findOne(
+    //             { _id : bet._id },
+    //             {}
+    //         );
+    //   bet.user = user;
+    // });
+
+    return ranking;
+  }
 });

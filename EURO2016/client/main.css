@@ -28,3 +28,11 @@
       background-color: #DDDDDD;
       width: 130px;
     }
+
+
+#ranking-table tr {
+  border: 1px solid #CCCCCC;
+}
+#ranking-table td {
+  padding: 5px;
+}

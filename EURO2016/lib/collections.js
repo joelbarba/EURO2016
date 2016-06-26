@@ -1,17 +1,17 @@
 Bets = new Mongo.Collection("bets");
-
+// users = new Mongo.Collection("users");
 
 // set up security on Websites collection
 Bets.allow({
 
-	update: function(user_id, doc) {
+	update: function(_id, doc) {
 		return true;
 	},
 
-	insert: function(user_id, doc) {
+	insert: function(_id, doc) {
 		return true;
 	}, 
-	remove: function(user_id, doc) {
+	remove: function(_id, doc) {
 		return true;
 	}
 });
