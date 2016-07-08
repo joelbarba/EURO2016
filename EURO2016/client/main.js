@@ -431,13 +431,15 @@ null, // 0
 'France', // 7
 'Iceland', // 8
 'Portugal', // 9
-'', // 10
-'', // 11
-'', // 12
-'', // 13
-'', // 14
+'Wales', // 10
+'Gernay', // 11
+'France', // 12
+'Portugal', // 13
+'France', // 14
 '' // 15
-]
+];
+
+// DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy joel-euro2016.meteorapp.com --settings ./settings.json
 
 
 Template.ranking_screen.helpers({
