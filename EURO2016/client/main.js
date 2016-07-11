@@ -436,7 +436,7 @@ null, // 0
 'France', // 12
 'Portugal', // 13
 'France', // 14
-'' // 15
+'Portugal' // 15
 ];
 
 // DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy joel-euro2016.meteorapp.com --settings ./settings.json
